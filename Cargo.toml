@@ -1,8 +1,11 @@
 [package]
-name = "dotopy"
+name = "dotypasta"
+authors = ["NiziL"]
 version = "0.1.0"
 edition = "2021"
+description = "Easily fetch, save and apply dotfiles"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+clap = { version = "4.4.8", features = ["derive"] }
