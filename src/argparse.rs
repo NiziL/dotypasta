@@ -64,6 +64,8 @@ pub enum Commands {
         #[arg(short, long)]
         tag: Option<String>,
     },
+    /// Delete the local repository
+    Clear {},
 }
 
 #[derive(ValueEnum, Clone, Debug)]
