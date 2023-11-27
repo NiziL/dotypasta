@@ -7,7 +7,7 @@ Inspired by [chezmoi](https://chezmoi.io)
 
 - [x] `dotypasta load <username>` clone `https://github.com/username/dotfiles` to `$HOME/.local/share/dotypasta` 
   - [x] option `--hub [github | gitlab | bitbucket ... ]` to select the git host 
-  - [x] option `-t <reference>` to load a specific tag or branch
+  - [ ] option `-t <reference>` to load a specific tag or branch
   - [x] option `--ssh` to clone the repository using ssh
   - [ ] option `--apply` to directly apply the configuration
 - [x] `dotypasta clear` to delete `$HOME/.local/share/dotypasta`

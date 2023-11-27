@@ -33,7 +33,23 @@ fn main() {
             }
         }
 
-        App { name, add, delete } => {}
+        App { name, add, delete } => {
+            if let Some(strings) = add {
+                dotypasta::app::add(name, strings);
+            }
+            if let Some(strings) = delete {
+                dotypasta::app::rm(name, strings);
+            }
+
+            if add.is_none() && delete.is_none() {
+                if let Some(filenames) = dotypasta::app::read(name) {
+                    // TODO cleaner print
+                    println!("{:?}", filenames);
+                } else {
+                    println!("Application {} is not defined", name)
+                }
+            }
+        }
 
         Diff { app } => {}
 
