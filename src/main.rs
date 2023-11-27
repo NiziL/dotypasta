@@ -55,7 +55,7 @@ fn main() {
 
         Apply { app } => {}
 
-        Save { app, tag } => {}
+        Save { app } => {}
 
         Clear {} => dotypasta::load::clear(),
     }

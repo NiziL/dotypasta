@@ -48,22 +48,19 @@ pub enum Commands {
     Diff {
         /// for this application (default: all)
         #[arg(long)]
-        app: Option<String>,
+        app: Option<Vec<String>>,
     },
     /// Apply pulled dotfiles
     Apply {
         /// for this application (default: all)
         #[arg(long)]
-        app: Option<String>,
+        app: Option<Vec<String>>,
     },
     /// Save dotfiles from your computer to the local repository
     Save {
         /// for this application (default: all)
         #[arg(long)]
-        app: Option<String>,
-        /// git tag to add on this save
-        #[arg(short, long)]
-        tag: Option<String>,
+        app: Option<Vec<String>>,
     },
     /// Delete the local repository
     Clear {},
