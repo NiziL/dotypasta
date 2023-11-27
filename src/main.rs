@@ -35,10 +35,10 @@ fn main() {
 
         App { name, add, delete } => {
             if let Some(strings) = add {
-                dotypasta::app::add(name, strings);
+                dotypasta::app::add(name.to_string(), strings.to_vec());
             }
             if let Some(strings) = delete {
-                dotypasta::app::rm(name, strings);
+                dotypasta::app::rm(name.to_string(), strings.to_vec());
             }
 
             if add.is_none() && delete.is_none() {
