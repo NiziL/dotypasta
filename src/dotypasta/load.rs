@@ -78,5 +78,5 @@ fn switch_to_ref(repo: Repository, refname: &str) {
             repo.set_head_detached(object.id())
         }
     }
-    .expect("Failed to set HEAD")
+    .expect("Failed to set HEAD");
 }

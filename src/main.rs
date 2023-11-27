@@ -1,6 +1,5 @@
 mod argparse;
 use argparse::Commands::{App, Apply, Clear, Diff, Load, Save};
-use argparse::GitHosts::{Bitbucket, Github, Gitlab};
 mod dotypasta;
 
 fn main() {
@@ -14,14 +13,18 @@ fn main() {
             apply,
         } => {
             // construct repo url
-            let url = format!("{}", argparse::GitURL::new(*ssh, hub.clone(), name.clone()));
+            let url = if *ssh {
+                format!("git@{}:{}/dotfiles.git", hub, name)
+            } else {
+                format!("https://{}/{}/dotfiles.git", hub, name)
+            };
 
             // clone repo
             match (ssh, tag) {
-                (false, None) => dotypasta::clone::from_https(&url),
-                (true, None) => dotypasta::clone::from_ssh(&url),
-                (false, Some(refname)) => dotypasta::clone::from_https_with_ref(&url, refname),
-                (true, Some(refname)) => dotypasta::clone::from_ssh_with_ref(&url, refname),
+                (false, None) => dotypasta::load::from_https(&url),
+                (true, None) => dotypasta::load::from_ssh(&url),
+                (false, Some(refname)) => dotypasta::load::from_https_with_ref(&url, refname),
+                (true, Some(refname)) => dotypasta::load::from_ssh_with_ref(&url, refname),
             }
 
             // apply configuration
@@ -38,6 +41,6 @@ fn main() {
 
         Save { app, tag } => {}
 
-        Clear {} => dotypasta::clone::clear(),
+        Clear {} => dotypasta::load::clear(),
     }
 }

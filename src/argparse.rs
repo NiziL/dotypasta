@@ -21,8 +21,8 @@ pub enum Commands {
         name: String,
         /// host from which pull
         #[clap(value_enum)]
-        #[arg(long, default_value_t=GitHosts::Github)]
-        hub: GitHosts,
+        #[arg(long, default_value_t=GitHost::Github)]
+        hub: GitHost,
         /// git tag to pull
         #[arg(short, long)]
         tag: Option<String>,
@@ -70,44 +70,18 @@ pub enum Commands {
 }
 
 #[derive(ValueEnum, Clone, Debug)]
-pub enum GitHosts {
+pub enum GitHost {
     Github,
     Gitlab,
     Bitbucket,
 }
 
-impl fmt::Display for GitHosts {
+impl fmt::Display for GitHost {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            GitHosts::Github => write!(f, "github.com"),
-            GitHosts::Gitlab => write!(f, "gitlab.com"),
-            GitHosts::Bitbucket => write!(f, "bitbucket.org"),
-        }
-    }
-}
-
-pub struct GitURL {
-    ssl: bool,
-    host: GitHosts,
-    username: String,
-}
-
-impl GitURL {
-    pub fn new(ssl: bool, host: GitHosts, username: String) -> GitURL {
-        GitURL {
-            ssl: ssl,
-            host: host,
-            username: username,
-        }
-    }
-}
-
-impl fmt::Display for GitURL {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        if self.ssl {
-            write!(f, "git@{}:{}/dotfiles.git", self.host, self.username)
-        } else {
-            write!(f, "https://{}/{}/dotfiles.git", self.host, self.username)
+            GitHost::Github => write!(f, "github.com"),
+            GitHost::Gitlab => write!(f, "gitlab.com"),
+            GitHost::Bitbucket => write!(f, "bitbucket.org"),
         }
     }
 }
