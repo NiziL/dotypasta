@@ -3,19 +3,19 @@ use std::env;
 use std::fs::remove_dir_all;
 use std::path::Path;
 
-pub fn clone_https(url: &str) {
+pub fn from_https(url: &str) {
     https(url);
 }
 
-pub fn clone_https_with_ref(url: &str, refname: &str) {
+pub fn from_https_with_ref(url: &str, refname: &str) {
     switch_to_ref(https(url), refname);
 }
 
-pub fn clone_ssh(url: &str) {
+pub fn from_ssh(url: &str) {
     ssh(url);
 }
 
-pub fn clone_ssh_with_ref(url: &str, refname: &str) {
+pub fn from_ssh_with_ref(url: &str, refname: &str) {
     switch_to_ref(ssh(url), refname);
 }
 

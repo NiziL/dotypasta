@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand, ValueEnum};
+use std::fmt;
 
 pub fn parse_args() -> Args {
     Args::parse()
@@ -73,4 +74,40 @@ pub enum GitHosts {
     Github,
     Gitlab,
     Bitbucket,
+}
+
+impl fmt::Display for GitHosts {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            GitHosts::Github => write!(f, "github.com"),
+            GitHosts::Gitlab => write!(f, "gitlab.com"),
+            GitHosts::Bitbucket => write!(f, "bitbucket.org"),
+        }
+    }
+}
+
+pub struct GitURL {
+    ssl: bool,
+    host: GitHosts,
+    username: String,
+}
+
+impl GitURL {
+    pub fn new(ssl: bool, host: GitHosts, username: String) -> GitURL {
+        GitURL {
+            ssl: ssl,
+            host: host,
+            username: username,
+        }
+    }
+}
+
+impl fmt::Display for GitURL {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        if self.ssl {
+            write!(f, "git@{}:{}/dotfiles.git", self.host, self.username)
+        } else {
+            write!(f, "https://{}/{}/dotfiles.git", self.host, self.username)
+        }
+    }
 }

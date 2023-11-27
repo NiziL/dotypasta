@@ -14,28 +14,14 @@ fn main() {
             apply,
         } => {
             // construct repo url
-            let url = format!(
-                "{protocol}{host}{sep}{name}/dotfiles.git",
-                protocol = if *ssh { "git@" } else { "https://" },
-                host = match hub {
-                    Github => "github.com",
-                    Gitlab => "gitlab.com",
-                    Bitbucket => "bitbucket.org",
-                },
-                sep = if *ssh { ":" } else { "/" },
-                name = name
-            );
+            let url = format!("{}", argparse::GitURL::new(*ssh, hub.clone(), name.clone()));
 
             // clone repo
             match (ssh, tag) {
-                (false, None) => dotypasta::repository::clone_https(url.as_str()),
-                (true, None) => dotypasta::repository::clone_ssh(url.as_str()),
-                (false, Some(refname)) => {
-                    dotypasta::repository::clone_https_with_ref(url.as_str(), refname)
-                }
-                (true, Some(refname)) => {
-                    dotypasta::repository::clone_ssh_with_ref(url.as_str(), refname)
-                }
+                (false, None) => dotypasta::clone::from_https(&url),
+                (true, None) => dotypasta::clone::from_ssh(&url),
+                (false, Some(refname)) => dotypasta::clone::from_https_with_ref(&url, refname),
+                (true, Some(refname)) => dotypasta::clone::from_ssh_with_ref(&url, refname),
             }
 
             // apply configuration
@@ -52,6 +38,6 @@ fn main() {
 
         Save { app, tag } => {}
 
-        Clear {} => dotypasta::repository::clear(),
+        Clear {} => dotypasta::clone::clear(),
     }
 }
