@@ -42,7 +42,7 @@ fn main() {
             }
 
             if add.is_none() && delete.is_none() {
-                if let Some(filenames) = dotypasta::config::read(name) {
+                if let Some(filenames) = dotypasta::config::get(name) {
                     // TODO cleaner print
                     println!("{:?}", filenames);
                 } else {

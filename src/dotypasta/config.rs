@@ -3,7 +3,7 @@ use std::env;
 use std::fs;
 use toml;
 
-fn open_config() -> HashMap<String, Vec<String>> {
+pub fn open_config() -> HashMap<String, Vec<String>> {
     let rcpath = format!(
         "{}/{}",
         env::var("HOME").unwrap(),
@@ -30,7 +30,7 @@ fn write_config(config: HashMap<String, Vec<String>>) {
     ));
 }
 
-pub fn read(appname: &String) -> Option<Vec<String>> {
+pub fn get(appname: &String) -> Option<Vec<String>> {
     let data = open_config();
     data.get(appname).cloned()
 }
