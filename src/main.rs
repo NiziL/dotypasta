@@ -22,8 +22,8 @@ fn main() {
             // clone repo
             match (ssh, tag) {
                 (false, None) => dotypasta::load::from_https(&url),
-                (true, None) => dotypasta::load::from_ssh(&url),
                 (false, Some(refname)) => dotypasta::load::from_https_with_ref(&url, refname),
+                (true, None) => dotypasta::load::from_ssh(&url),
                 (true, Some(refname)) => dotypasta::load::from_ssh_with_ref(&url, refname),
             }
 

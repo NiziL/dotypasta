@@ -10,17 +10,27 @@ If you want to give it a shot, clone the repository and `cargo build`
 
 ## Convention & Configuration
 
-Dotypasta clone a repository named `dotfiles` from a specified user at `$HOME/.local/share/dotypasta`.  
-This directory must contains the `dotypasta.toml` file, and respect a structure commonly used among `dotfiles` repository (the root of the directory is supposed to be your home).
+Dotypasta relies on two things:
+- a `.dotypastarc` in your home directory, it tells dotypasta which files must be copied.
+- a `dotypasta` folder at `~/.local/share/`, usually a git repostory, where all the dotfiles are stored.
 
+##### ~/.dotypastarc
+
+This is a simple flat toml file.
 ```toml
+dotypasta = [".dotypastarc"]
 zsh = [".zshrc", ".oh-my-zsh/custom/themes/nizil.zsh"]
 i3 = [".config/i3/config", ".config/i3blocks/config"]
 vi = [".vimrc", ".config/nvim/init.vim"]
 ```
+With such config file, dotypasta has 4 *apps* defined (dotypasta, zsh, i3 and vi) with their respective files. It expects to find this files in the dotypasta directory (see below).
 
-With such config file, dotypasta has 3 *apps* defined (zsh, i3 and vi) with their respective files.  
-It expect to find this files in the repository, and will copy them in your HOME directory (while preserving the relative path).
+##### ~/.local/share/dotypasta/
+
+Using the `load` subcommand, dotypasta clone a repository named `dotfiles` from a specified user at `$HOME/.local/share/dotypasta`.  
+This directory must respect a structure commonly used among `dotfiles` repository, i.e. the root of the directory is supposed to be your home.
+
+In the previous example, the repository must have `.dotypastarc`, `.zshrc`, `.vimrc` at the root of the repository, a `config` file in a directory `.config/i3/`, and so on.
 
 ## Features roadmap
 
@@ -30,7 +40,7 @@ It expect to find this files in the repository, and will copy them in your HOME 
   - [x] option `--ssh` to clone the repository using ssh
   - [ ] option `--apply` to directly apply the configuration
 - [x] `dotypasta clear` to delete `$HOME/.local/share/dotypasta`
-- [x] `dotypasta app <appname>` show you the files copied for `appname`
+- [x] `dotypasta app <appname>` show you the files copied for `appname` as configured in `.dotypastarc`
   - [x] `dotypasta app <appname> -a <file> -a <file2>...` add all files to the `appname` configuration
   - [x] `dotypasta app <appname> -d <file> -d <file2>...` delete all files from the `appname` configuration
 - [ ] `dotypasta diff` show you the difference between the loaded dotfiles and your current configuration

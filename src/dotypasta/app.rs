@@ -4,26 +4,24 @@ use std::fs;
 use toml;
 
 fn open_config() -> HashMap<String, Vec<String>> {
-    let fpath: String = env::var("HOME").unwrap() + "/.local/share/dotypasta/dotypasta.toml";
-    let contents =
-        fs::read_to_string(fpath).expect("Could not read ~/.local/share/dotypasta/dotypasta.toml");
+    let rcpath: String = env::var("HOME").unwrap() + "/.dotypastarc";
+    let contents = match fs::read_to_string(rcpath) {
+        Ok(contents) => contents,
+        Err(_) => "".to_string(),
+    };
     let data: HashMap<String, Vec<String>> = toml::from_str(&contents).unwrap();
     return data;
 }
 
 fn write_config(config: HashMap<String, Vec<String>>) {
-    let fpath: String = env::var("HOME").unwrap() + "/.local/share/dotypasta/dotypasta.toml";
+    let rcpath: String = env::var("HOME").unwrap() + "/.dotypastarc";
     let data = toml::to_string(&config).unwrap();
-    fs::write(fpath, data).expect("Could not write ~/.local/share/dotypasta/dotypasta.toml");
+    fs::write(rcpath, data).expect("Could not write ~/.dotypastarc");
 }
 
 pub fn read(appname: &String) -> Option<Vec<String>> {
     let data = open_config();
-    if data.contains_key(appname) {
-        Some(data[appname].clone())
-    } else {
-        None
-    }
+    data.get(appname).cloned()
 }
 
 pub fn add(appname: String, filenames: Vec<String>) {
