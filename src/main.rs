@@ -29,11 +29,12 @@ fn main() {
 
             // apply configuration
             if *apply {
-                // TODO dotypasta::apply();
+                dotypasta::files::dotypasta_to_host(dotypasta::config::open_config())
             }
         }
 
         App { name, add, delete } => {
+            // TODO 5 file access here (3r, 2w) => expose more fn in config to reduce it
             if let Some(strings) = add {
                 dotypasta::config::add(name.to_string(), strings.to_vec());
             }
@@ -46,16 +47,30 @@ fn main() {
                     // TODO cleaner print
                     println!("{:?}", filenames);
                 } else {
-                    println!("Application {} is not defined", name)
+                    println!("Application {} is not defined", name);
                 }
             }
         }
 
         Diff { app } => {}
 
-        Apply { app } => {}
+        Apply { app } => {
+            let config = dotypasta::config::open_config();
+            if let Some(appnames) = app {
+                // TODO filter config
+            } else {
+                dotypasta::files::dotypasta_to_host(config);
+            };
+        }
 
-        Save { app } => {}
+        Save { app } => {
+            let config = dotypasta::config::open_config();
+            if let Some(appnames) = app {
+                // TODO filter config
+            } else {
+                dotypasta::files::host_to_dotypasta(config);
+            };
+        }
 
         Clear {} => dotypasta::repo::clear(),
     }
