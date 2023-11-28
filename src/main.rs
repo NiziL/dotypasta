@@ -21,10 +21,10 @@ fn main() {
 
             // clone repo
             match (ssh, tag) {
-                (false, None) => dotypasta::load::from_https(&url),
-                (false, Some(refname)) => dotypasta::load::from_https_with_ref(&url, refname),
-                (true, None) => dotypasta::load::from_ssh(&url),
-                (true, Some(refname)) => dotypasta::load::from_ssh_with_ref(&url, refname),
+                (false, None) => dotypasta::repo::from_https(&url),
+                (false, Some(refname)) => dotypasta::repo::from_https_with_ref(&url, refname),
+                (true, None) => dotypasta::repo::from_ssh(&url),
+                (true, Some(refname)) => dotypasta::repo::from_ssh_with_ref(&url, refname),
             }
 
             // apply configuration
@@ -35,14 +35,14 @@ fn main() {
 
         App { name, add, delete } => {
             if let Some(strings) = add {
-                dotypasta::app::add(name.to_string(), strings.to_vec());
+                dotypasta::config::add(name.to_string(), strings.to_vec());
             }
             if let Some(strings) = delete {
-                dotypasta::app::rm(name.to_string(), strings.to_vec());
+                dotypasta::config::rm(name.to_string(), strings.to_vec());
             }
 
             if add.is_none() && delete.is_none() {
-                if let Some(filenames) = dotypasta::app::read(name) {
+                if let Some(filenames) = dotypasta::config::read(name) {
                     // TODO cleaner print
                     println!("{:?}", filenames);
                 } else {
@@ -57,6 +57,6 @@ fn main() {
 
         Save { app } => {}
 
-        Clear {} => dotypasta::load::clear(),
+        Clear {} => dotypasta::repo::clear(),
     }
 }
