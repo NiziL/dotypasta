@@ -21,15 +21,20 @@ pub fn from_ssh_with_ref(url: &str, refname: &str) {
 
 pub fn clear() {
     let _ = remove_dir_all(&format!(
-        "{}/.local/share/dotypasta",
+        "{}/{}",
         env::var("HOME").unwrap(),
+        crate::dotypasta::REPO_PATH
     ));
 }
 
 fn https(url: &str) -> Repository {
     Repository::clone(
         url,
-        &format!("{}/.local/share/dotypasta", env::var("HOME").unwrap()),
+        &format!(
+            "{}/{}",
+            env::var("HOME").unwrap(),
+            crate::dotypasta::REPO_PATH
+        ),
     )
     .expect(&format!("Failed to clone the repository {}", url))
 }
@@ -51,8 +56,9 @@ fn ssh(url: &str) -> Repository {
         .clone(
             url,
             Path::new(&format!(
-                "{}/.local/share/dotypasta",
-                env::var("HOME").unwrap()
+                "{}/{}",
+                env::var("HOME").unwrap(),
+                crate::dotypasta::REPO_PATH
             )),
         )
         .expect("Failed to clone the repository")

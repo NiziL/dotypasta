@@ -4,7 +4,11 @@ use std::fs;
 use toml;
 
 fn open_config() -> HashMap<String, Vec<String>> {
-    let rcpath: String = env::var("HOME").unwrap() + "/.dotypastarc";
+    let rcpath = format!(
+        "{}/{}",
+        env::var("HOME").unwrap(),
+        crate::dotypasta::CONFIG_FILE
+    );
     let contents = match fs::read_to_string(rcpath) {
         Ok(contents) => contents,
         Err(_) => "".to_string(),
@@ -14,9 +18,16 @@ fn open_config() -> HashMap<String, Vec<String>> {
 }
 
 fn write_config(config: HashMap<String, Vec<String>>) {
-    let rcpath: String = env::var("HOME").unwrap() + "/.dotypastarc";
+    let rcpath = format!(
+        "{}/{}",
+        env::var("HOME").unwrap(),
+        crate::dotypasta::CONFIG_FILE
+    );
     let data = toml::to_string(&config).unwrap();
-    fs::write(rcpath, data).expect("Could not write ~/.dotypastarc");
+    fs::write(rcpath, data).expect(&format!(
+        "Could not write ~/{}",
+        crate::dotypasta::CONFIG_FILE
+    ));
 }
 
 pub fn read(appname: &String) -> Option<Vec<String>> {
