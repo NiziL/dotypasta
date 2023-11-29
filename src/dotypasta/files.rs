@@ -21,14 +21,17 @@ pub fn dotypasta_to_host(config: HashMap<String, Vec<String>>) {
             let home = format!("{}/{}", env::var("HOME").unwrap(), filename);
             let src_path = Path::new(&dotypasta);
             let dst_path = Path::new(&home);
-            // TODO better UI
-            println!("copy {:?} to {:?}", src_path, dst_path);
             if let Some(dir) = dst_path.parent() {
                 if let Ok(false) = dir.try_exists() {
                     let _ = fs::create_dir_all(dir);
                 }
             }
-            let _ = fs::copy(src_path, dst_path);
+            // TODO better UI
+            if let Ok(_) = fs::copy(src_path, dst_path) {
+                println!("copy {:?} to {:?}", src_path, dst_path);
+            } else {
+                println!("error copying {:?} to {:?}", src_path, dst_path);
+            }
         });
 }
 
@@ -50,13 +53,16 @@ pub fn host_to_dotypasta(config: HashMap<String, Vec<String>>) {
             let home = format!("{}/{}", env::var("HOME").unwrap(), filename);
             let src_path = Path::new(&home);
             let dst_path = Path::new(&dotypasta);
-            // TODO better UI
-            println!("copy {:?} to {:?}", src_path, dst_path);
             if let Some(dir) = dst_path.parent() {
                 if let Ok(false) = dir.try_exists() {
                     let _ = fs::create_dir_all(dir);
                 }
             }
-            let _ = fs::copy(src_path, dst_path);
+            // TODO better UI
+            if let Ok(_) = fs::copy(src_path, dst_path) {
+                println!("copy {:?} to {:?}", src_path, dst_path);
+            } else {
+                println!("error copying {:?} to {:?}", src_path, dst_path);
+            }
         });
 }
