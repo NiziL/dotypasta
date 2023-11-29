@@ -55,21 +55,19 @@ fn main() {
         Diff { app } => {}
 
         Apply { app } => {
-            let config = dotypasta::config::open_config();
+            let mut config = dotypasta::config::open_config();
             if let Some(appnames) = app {
-                // TODO filter config
-            } else {
-                dotypasta::files::dotypasta_to_host(config);
-            };
+                config.retain(|k, v| appnames.contains(k));
+            }
+            dotypasta::files::dotypasta_to_host(config);
         }
 
         Save { app } => {
-            let config = dotypasta::config::open_config();
+            let mut config = dotypasta::config::open_config();
             if let Some(appnames) = app {
-                // TODO filter config
-            } else {
-                dotypasta::files::host_to_dotypasta(config);
-            };
+                config.retain(|k, v| appnames.contains(k));
+            }
+            dotypasta::files::host_to_dotypasta(config);
         }
 
         Clear {} => dotypasta::repo::clear(),

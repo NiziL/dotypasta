@@ -47,10 +47,10 @@ In the previous example, the repository must have `.dotypastarc`, `.zshrc`, `.vi
 - [ ] `dotypasta diff` show you the difference between the loaded dotfiles and your current configuration
   - [ ] `--app <appname> --app <appname2>...` to see the difference for specific apps
 - [x] `dotypasta apply` copy all the dotfiles from the loaded configuration to the host
-  - [ ] `--app <appname> --app <appname2>...` to apply the configuration for specific apps
+  - [x] `--app <appname> --app <appname2>...` to apply the configuration for specific apps
 - [x] `dotypasta save` copy all the dotfiles from the host to the local repository
-  - [ ] `--app <appname> --app <appname2>...` to backup dotfiles for specific apps
+  - [x] `--app <appname> --app <appname2>...` to backup dotfiles for specific apps
   - [ ] automatically commit & push
 - [ ] better UI 
   - using [indicatif](https://docs.rs/indicatif/latest/indicatif/)
-  - maybe a TUI framework ?
+  - maybe [console](https://docs.rs/console/latest/console/) and [dialoguer](https://docs.rs/dialoguer/latest/dialoguer/)
