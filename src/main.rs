@@ -57,7 +57,7 @@ fn main() {
         Apply { app } => {
             let mut config = dotypasta::config::open_config();
             if let Some(appnames) = app {
-                config.retain(|k, v| appnames.contains(k));
+                config.retain(|k, _| appnames.contains(k));
             }
             dotypasta::files::dotypasta_to_host(config);
         }
@@ -65,7 +65,7 @@ fn main() {
         Save { app } => {
             let mut config = dotypasta::config::open_config();
             if let Some(appnames) = app {
-                config.retain(|k, v| appnames.contains(k));
+                config.retain(|k, _| appnames.contains(k));
             }
             dotypasta::files::host_to_dotypasta(config);
         }
