@@ -33,7 +33,7 @@ pub enum Commands {
         #[arg(long, action)]
         apply: bool,
     },
-    /// Configure applications for dotopy
+    /// Configure applications for dotypasta
     App {
         /// application name to configure
         name: String,
