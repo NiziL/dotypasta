@@ -1,5 +1,5 @@
 mod argparse;
-use argparse::Commands::{App, Apply, Clear, Diff, Load, Save};
+use argparse::Commands::{Apply, Clear, Config, Diff, Load, Save};
 mod dotypasta;
 
 fn main() {
@@ -33,7 +33,7 @@ fn main() {
             }
         }
 
-        App { name, add, delete } => {
+        Config { name, add, delete } => {
             // TODO 5 file access here (3r, 2w) => expose more fn in config to reduce it
             if let Some(strings) = add {
                 dotypasta::config::add(name.to_string(), strings.to_vec());

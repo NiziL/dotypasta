@@ -34,7 +34,7 @@ pub enum Commands {
         apply: bool,
     },
     /// Configure applications for dotypasta
-    App {
+    Config {
         /// application name to configure
         name: String,
         /// files to add to this application
