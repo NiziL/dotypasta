@@ -12,9 +12,13 @@ pub fn dotypasta_to_host(config: HashMap<String, Vec<String>>) {
             filenames.iter()
         })
         .for_each(|filename| {
-            let dotypasta =
-                env::var("HOME").unwrap() + "/" + crate::dotypasta::REPO_PATH + "/" + filename;
-            let home = env::var("HOME").unwrap() + "/" + filename;
+            let dotypasta = format!(
+                "{}/{}/{}",
+                env::var("HOME").unwrap(),
+                crate::dotypasta::REPO_PATH,
+                filename
+            );
+            let home = format!("{}/{}", env::var("HOME").unwrap(), filename);
             let src_path = Path::new(&dotypasta);
             let dst_path = Path::new(&home);
             // TODO better UI
@@ -37,9 +41,13 @@ pub fn host_to_dotypasta(config: HashMap<String, Vec<String>>) {
             filenames.iter()
         })
         .for_each(|filename| {
-            let dotypasta =
-                env::var("HOME").unwrap() + "/" + crate::dotypasta::REPO_PATH + "/" + filename;
-            let home = env::var("HOME").unwrap() + "/" + filename;
+            let dotypasta = format!(
+                "{}/{}/{}",
+                env::var("HOME").unwrap(),
+                crate::dotypasta::REPO_PATH,
+                filename
+            );
+            let home = format!("{}/{}", env::var("HOME").unwrap(), filename);
             let src_path = Path::new(&home);
             let dst_path = Path::new(&dotypasta);
             // TODO better UI
