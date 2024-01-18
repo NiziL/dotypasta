@@ -62,12 +62,18 @@ fn main() {
             dotypasta::files::dotypasta_to_host(config);
         }
 
-        Save { app } => {
+        Save { app, msg } => {
             let mut config = dotypasta::config::open_config();
             if let Some(appnames) = app {
                 config.retain(|k, _| appnames.contains(k));
             }
             dotypasta::files::host_to_dotypasta(config);
+
+            if let Some(message) = msg {
+                dotypasta::repo::commit(message);
+            } else {
+                dotypasta::repo::commit("");
+            }
         }
 
         Clear {} => dotypasta::repo::clear(),

@@ -1,3 +1,4 @@
+use git2::build::CheckoutBuilder;
 use git2::{Cred, FetchOptions, RemoteCallbacks, Repository};
 use std::env;
 use std::fs::remove_dir_all;
@@ -41,6 +42,7 @@ fn https(url: &str) -> Repository {
 
 fn ssh(url: &str) -> Repository {
     // TODO : the credentials are broken here, for sure
+    // Well... It actually works on private repository... so maybe not so broken
     let mut callbacks = RemoteCallbacks::new();
     callbacks
         .credentials(|_url, username, _allowed_types| Cred::ssh_key_from_agent(username.unwrap()));
@@ -86,3 +88,5 @@ fn switch_to_ref(repo: Repository, refname: &str) {
     }
     .expect("Failed to set HEAD");
 }
+
+pub fn commit(msg: &str) {}

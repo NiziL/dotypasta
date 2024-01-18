@@ -61,6 +61,9 @@ pub enum Commands {
         /// for this application (default: all)
         #[arg(long)]
         app: Option<Vec<String>>,
+        // commit message
+        #[arg(short)]
+        msg: Option<String>,
     },
     /// Delete the local repository
     Clear {},
