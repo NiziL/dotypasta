@@ -51,6 +51,7 @@ In the previous example, the repository must have `.dotypastarc`, `.zshrc`, `.vi
 - [x] `dotypasta save` copy all the dotfiles from the host to the local repository
   - [x] `--app <appname> --app <appname2>...` to backup dotfiles for specific apps
   - [ ] automatically commit & push
-- [ ] better UI 
+    - [ ] `-m <message>` to edit the commit message
+- [ ] improved UI/UX
   - using [indicatif](https://docs.rs/indicatif/latest/indicatif/)
   - maybe [console](https://docs.rs/console/latest/console/) and [dialoguer](https://docs.rs/dialoguer/latest/dialoguer/)
